@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
-            src="https://code.jquery.com/jquery-3.6.3.js"
-            integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-            crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="js/callbacks.js"></script>
     <script src="js/validate.js"></script>
     <script src="js/drawGraph.js"></script>
@@ -16,16 +12,16 @@
 </head>
 <body>
 <header>
-    <p>Самойлова Артемия Александровна P3230 409513</p>
+    Самойлова Артемия Александровна P3230 409513
 </header>
-<table>
+<table id="main">
     <tr>
         <td>
             <canvas id="graphCanvas" width="400" height="400"></canvas>
             <script>draw()</script>
         </td>
         <td>
-            <p>Выберите значения:</p>
+            <h3 class="centered">Выберите значения:</h3>
             <form id="value-form" action="javascript:void(0);">
                 <label for="x">X =</label>
                 <select name="x" id="x">
@@ -53,12 +49,14 @@
                     <label><input type="radio" name="radius" value="4" onchange="draw(4)">4</label>
                     <label><input type="radio" name="radius" value="5" onchange="draw(5)">5</label>
                 </div>
-                <button onclick="handleSubmit()">Жмяк</button>
+                <div class="button-container">
+                    <button onclick="handleSubmit()">Жмяк</button>
+                </div>
             </form>
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             <table id="resultTable">
                 <tr>
                     <td>Время запроса</td>

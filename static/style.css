@@ -3,9 +3,84 @@
     src: url("fonts/Pecita.otf");
     src: url("fonts/Pecita.otf") format("opentype")
 }
+
 html {
     font-family: "Pecita", serif;
 }
+
 button, option, select, input {
     font-family: "Pecita", serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #25CED1; /* Фон */
+    text-align: center;
+    font-size: 1.5em;
+    height: 9vh;
+    align-content: center;
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10vh;
+    margin: 0;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+
+}
+
+.centered {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.button-container button {
+    background: white;
+    border: 3px solid #EA526F;
+    border-radius: 13px;
+    width: 80px;
+    height: 40px;
+    color: #EA526F;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.button-container button:active {
+    background: #EA526F;
+    color: white;
+    transform: scale(0.95); /* Уменьшение размера кнопки */
+}
+
+#resultTable {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%; /* Ширина таблицы на всю ширину ячейки */
+}
+
+#resultTable tr:first-child {
+    color: white;
+    background-color: #FF8A5B; /* Цвет фона для первой строки */
+    font-size: 1.2em; /* Увеличение размера шрифта для заголовков */
+    padding: 10px; /* Дополнительное поле для заголовков */
+}
+
+#resultTable td {
+    text-align: center;
+    padding: 5px;
 }

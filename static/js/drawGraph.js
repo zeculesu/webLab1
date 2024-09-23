@@ -20,14 +20,14 @@ function draw(radius) {
     ctx.arc(centerX, centerY, R, 0.5 * Math.PI, Math.PI); // Сектор от 90 до 180 градусов
     ctx.lineTo(centerX, centerY); // Замкнуть путь
     ctx.closePath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = '#25CED1';
     ctx.fill();
 
     // Прямоугольник
     ctx.beginPath();
     ctx.rect(centerX, centerY - R, R / 2, R);
     ctx.closePath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = '#25CED1';
     ctx.fill();
 
     // Треугольник
@@ -36,7 +36,7 @@ function draw(radius) {
     ctx.lineTo(centerX - R / 2, centerY);
     ctx.lineTo(centerX, centerY - R / 2);
     ctx.closePath();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = '#25CED1';
     ctx.fill();
 
     ctx.strokeStyle = 'black';
@@ -109,9 +109,8 @@ function drawPoint(x, y) {
     const step = width / 6 / 2; // щаг отрезка
 
     var circle = new Path2D();
-   // circle.moveTo(125, 35);
-    circle.arc(centerX + x * step, centerY - y * step, 2, 0, 2 * Math.PI);
-    ctx.fillStyle = "red";
+    circle.arc(centerX + x * step, centerY - y * step, 3, 0, 2 * Math.PI);
+    ctx.fillStyle = "#EA526F";
     ctx.fill(circle);
 
     points.push({x: x, y: y});

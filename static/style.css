@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Pecita";
+    src: url("fonts/Pecita.otf");
+    src: url("fonts/Pecita.otf") format("opentype")
+}
+html {
+    font-family: "Pecita", serif;
+}
+button, option, select, input {
+    font-family: "Pecita", serif;
+}

@@ -14,11 +14,11 @@ function draw(radius) {
 
     const R = radius * width / 6 / 2;
 
-    // Сектор круга
+    // Круг
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY); // Центр координат
-    ctx.arc(centerX, centerY, R, 0.5 * Math.PI, Math.PI); // Сектор от 90 до 180 градусов
-    ctx.lineTo(centerX, centerY); // Замкнуть путь
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, R, 0.5 * Math.PI, Math.PI);
+    ctx.lineTo(centerX, centerY);
     ctx.closePath();
     ctx.fillStyle = '#25CED1';
     ctx.fill();
@@ -32,7 +32,7 @@ function draw(radius) {
 
     // Треугольник
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY); // Центр координат
+    ctx.moveTo(centerX, centerY);
     ctx.lineTo(centerX - R / 2, centerY);
     ctx.lineTo(centerX, centerY - R / 2);
     ctx.closePath();

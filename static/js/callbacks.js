@@ -44,10 +44,17 @@ function addNewLineTable(time, x, y, r, hitResult, executionTime) {
     const table = document.getElementById('resultTable');
     const newRow = document.createElement('tr');
     const rowData = [time, x, y, r, hitResult, executionTime];
-    rowData.forEach(data => {
+
+    rowData.forEach((data, index) => {
         const newCell = document.createElement('td');
         newCell.textContent = data;
+
+        if (index === 4) {
+            newCell.style.color = hitResult === "true" ? "#25CED1" : "#EA526F";
+        }
+
         newRow.appendChild(newCell);
     });
-    table.appendChild(newRow);
+
+    table.insertBefore(newRow, table.rows[1]);
 }

@@ -1,7 +1,7 @@
 @font-face {
     font-family: "Pecita";
     src: url("fonts/Pecita.otf");
-    src: url("fonts/Pecita.otf") format("opentype")
+    src: url("fonts/Pecita.otf") format("opentype");
 }
 
 html {
@@ -17,7 +17,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #25CED1; /* Фон */
+    background-color: #25CED1;
     text-align: center;
     font-size: 1.5em;
     height: 9vh;
@@ -36,10 +36,10 @@ body {
 #main {
     display: flex;
     justify-content: center;
-
 }
 
 .centered {
+    font-size: 1.3em;
     text-align: center;
 }
 
@@ -64,23 +64,27 @@ body {
 .button-container button:active {
     background: #EA526F;
     color: white;
-    transform: scale(0.95); /* Уменьшение размера кнопки */
+    transform: scale(0.95);
 }
 
 #resultTable {
     border-collapse: collapse;
     margin: auto;
-    width: 100%; /* Ширина таблицы на всю ширину ячейки */
+    width: 100%;
 }
 
 #resultTable tr:first-child {
     color: white;
-    background-color: #FF8A5B; /* Цвет фона для первой строки */
-    font-size: 1.2em; /* Увеличение размера шрифта для заголовков */
-    padding: 10px; /* Дополнительное поле для заголовков */
+    background-color: #FF8A5B;
+    font-size: 1.2em;
+    padding: 10px;
 }
 
 #resultTable td {
     text-align: center;
+    padding: 5px;
+}
+
+#main td {
     padding: 5px;
 }

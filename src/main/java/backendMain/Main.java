@@ -3,6 +3,9 @@ package backendMain;
 import backendMain.utils.HitCheck;
 import backendMain.utils.ValidateValue;
 import com.fastcgi.FCGIInterface;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,9 +34,8 @@ public class Main {
                 float y = Float.parseFloat(params.get("y"));
                 int r = Integer.parseInt(params.get("r"));
 
-                long executionTime = System.nanoTime() - startTime;
-
                 if (ValidateValue.checkX(x) && ValidateValue.checkY(y) && ValidateValue.checkR(r)) {
+                    long executionTime = System.nanoTime() - startTime;
                     sendJson(createJsonResponse(HitCheck.hit(x, y, r), x, y, r, executionTime));
                 } else {
                     sendJson("{\"error\": \"invalid data\"}");
@@ -42,8 +44,6 @@ public class Main {
                 sendJson("{\"error\": \"wrong query param type\"}");
             } catch (NullPointerException e) {
                 sendJson("{\"error\": \"missed necessary query param\"}");
-            } catch (Exception e) {
-                sendJson(String.format("{\"error\": \"%s\"}", (Object) e.getStackTrace()));
             }
         }
     }
@@ -59,7 +59,8 @@ public class Main {
                 reader.read(bodyChars, 0, length);
                 String line = new String(bodyChars);
                 requestBody.append(line);
-            } catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         return requestBody.toString();
     }
@@ -83,6 +84,10 @@ public class Main {
         return params;
     }
 
+//    private static JsonObject parseJson(String json) {
+//        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+//        return jsonObject;
+//    }
 
     private static String createJsonResponse(boolean result, float x, float y, int r, long executionTime) {
         return String.format("%b\n%.1f\n%s\n%d\n%d", result, x, removeTrailingZeros(y), r, executionTime);

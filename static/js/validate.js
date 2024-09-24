@@ -16,7 +16,7 @@ function checkY(y) {
 }
 
 function checkX(x) {
-    if (x === null) {
+    if (x === null || x === "" || isNaN(x)) {
         alert("Выберите значение для X!");
         return false;
     }

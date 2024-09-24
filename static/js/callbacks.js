@@ -7,11 +7,11 @@ function handleSubmit() {
     const xCheck = checkX(xInput);
     const rCheck = checkR(rInput);
 
-    const yValue = parseFloat(yInput);
-    const xValue = parseFloat(xInput);
-    const rValue = parseInt(rInput);
-
     if (yCheck && xCheck && rCheck) {
+        const yValue = parseFloat(yInput);
+        const xValue = parseFloat(xInput);
+        const rValue = parseInt(rInput);
+
         const requestContent = {
             "method": "post",
             "headers": {

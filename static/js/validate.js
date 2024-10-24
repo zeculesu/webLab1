@@ -8,7 +8,7 @@ function checkY(y) {
         alert("Y должно быть числом!");
         return false;
     }
-    if (yNumber < -5 || yNumber > 5) {
+    if (yNumber <= -5 || yNumber >= 5) {
         alert("Значение Y должно быть в диапазоне от -5 до 5");
         return false;
     }

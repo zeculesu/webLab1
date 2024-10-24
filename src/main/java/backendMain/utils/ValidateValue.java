@@ -6,6 +6,9 @@ public class ValidateValue {
         if (x == null) {
             return false;
         }
+        if (x.isNaN()){
+            throw new NumberFormatException();
+        }
         return (x == -2 || x == -1.5 || x == -1 || x == -0.5 || x == 0 || x == 0.5 || x == 1 || x == 1.5 || x == 2);
     }
 
@@ -13,7 +16,10 @@ public class ValidateValue {
         if (y == null) {
             return false;
         }
-        return y >= -5 && y <= 5;
+        if (y.isNaN()){
+            throw new NumberFormatException();
+        }
+        return y > -5 && y < 5;
     }
 
     public static boolean checkR(Integer r) {

@@ -3,47 +3,51 @@ package backendMain;
 import backendMain.utils.HitCheck;
 import backendMain.utils.ValidateValue;
 import com.fastcgi.FCGIInterface;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
-import static backendMain.utils.ValidateValue.removeTrailingZeros;
 
 public class Main {
     private static final String RESPONSE_TEMPLATE = """
-            Content-Type: text/plain
+            Status: %d %s \n
+            Content-Type: application/json
             Content-Length: %d
 
             %s""";
+
 
     public static void main(String[] args) {
         FCGIInterface fcgiInterface = new FCGIInterface();
         while (fcgiInterface.FCGIaccept() >= 0) {
             try {
-                long startTime = System.nanoTime();
                 String body = fillBody(FCGIInterface.request.params);
-                HashMap<String, String> params = parseJson(body);
+                JsonObject params = parseJson(body);
 
-                float x = Float.parseFloat(params.get("x"));
-                float y = Float.parseFloat(params.get("y"));
-                int r = Integer.parseInt(params.get("r"));
+                float x = Float.parseFloat(params.get("x").getAsString());
+                float y = Float.parseFloat(params.get("y").getAsString());
+                int r = Integer.parseInt(params.get("r").getAsString());
 
                 if (ValidateValue.checkX(x) && ValidateValue.checkY(y) && ValidateValue.checkR(r)) {
-                    long executionTime = System.nanoTime() - startTime;
-                    sendJson(createJsonResponse(HitCheck.hit(x, y, r), x, y, r, executionTime));
+                    sendJson(createJsonResponse(HitCheck.hit(x, y, r), x, y, r));
                 } else {
-                    sendJson("{\"error\": \"invalid data\"}");
+                    System.out.println("HTTP/1.1 400 Bad Request");
+                    //sendJsonStatus("{\"error\": \"invalid data\"}", "400 Bad Request");
                 }
             } catch (NumberFormatException e) {
-                sendJson("{\"error\": \"wrong query param type\"}");
-            } catch (NullPointerException e) {
-                sendJson("{\"error\": \"missed necessary query param\"}");
+                System.out.println("HTTP/1.1 400 Bad Request");
+                //sendJsonStatus("{\"error\": \"wrong query param type\"}", "400 Bad Request");
+            } catch (NullPointerException | UnsupportedOperationException e) {
+                System.out.println("HTTP/1.1 400 Bad Request");
+                //sendJsonStatus("{\"error\": \"missed necessary query param\"}", "400 Bad Request ");
+            } catch (Exception ignored) {
             }
         }
     }
@@ -65,31 +69,28 @@ public class Main {
         return requestBody.toString();
     }
 
+    private static JsonObject parseJson(String json) {
+        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+        return jsonObject;
+    }
+
     private static void sendJson(String jsonDump) {
-        System.out.println(String.format(RESPONSE_TEMPLATE, jsonDump.getBytes(StandardCharsets.UTF_8).length, jsonDump));
-    }
-
-    private static HashMap<String, String> parseJson(String json) {
-        HashMap<String, String> params = new HashMap<>();
-        json = json.replaceAll("[{}\"]", "");
-        String[] keyValues = json.split(",");
-        for (String keyValue : keyValues) {
-            String[] pair = keyValue.split(":");
-            if (pair.length == 2) {
-                String key = pair[0].trim();
-                String value = pair[1].trim();
-                params.put(key, value);
-            }
+        String httpResponse = String.format(RESPONSE_TEMPLATE, jsonDump.getBytes(StandardCharsets.UTF_8).length, jsonDump);
+        try {
+            FCGIInterface.request.outStream.write(httpResponse.getBytes(StandardCharsets.UTF_8));
+            FCGIInterface.request.outStream.flush();
+        } catch (IOException e) {
         }
-        return params;
     }
 
-//    private static JsonObject parseJson(String json) {
-//        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-//        return jsonObject;
-//    }
 
-    private static String createJsonResponse(boolean result, float x, float y, int r, long executionTime) {
-        return String.format("%b\n%.1f\n%s\n%d\n%d", result, x, removeTrailingZeros(y), r, executionTime);
+    private static String createJsonResponse(boolean result, float x, float y, int r) {
+        Gson gson = new Gson();
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("result", result);
+        responseMap.put("x", x);
+        responseMap.put("y", y);
+        responseMap.put("r", r);
+        return gson.toJson(responseMap);
     }
 }

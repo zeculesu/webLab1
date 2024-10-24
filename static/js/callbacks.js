@@ -24,19 +24,21 @@ function handleSubmit() {
             })
 
         };
+        const startTime = Date.now();
         const url = "http://localhost:8080/fcgi-bin/web_server.jar";
-        fetch(url, requestContent).then(response => response.text()).then(data => {
-                drawPoint(xValue, yValue);
-                const row = data.split("\n");
+        fetch(url, requestContent)
+            .then(response => response.json())
+            .then(data => {
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                drawPoint(data.x, data.y);
                 const time = new Date().toLocaleTimeString();
-                const hitResult = row[0];
-                const x = row[1];
-                const y = row[2];
-                const r = row[3];
-                const executionTime = row[4];
-                addNewLineTable(time, x, y, r, hitResult, executionTime);
-            }
-        );
+                const hitResult = data.result;
+                const x = data.x;
+                const y = data.y;
+                const r = data.r;
+                addNewLineTable(time, x, y, r, hitResult, duration);
+            });
     }
 }
 

@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class Main {
     private static final String RESPONSE_TEMPLATE = """
-            Status: %d %s \n
+            Status: %d %s
             Content-Type: application/json
             Content-Length: %d
 
@@ -38,15 +38,12 @@ public class Main {
                 if (ValidateValue.checkX(x) && ValidateValue.checkY(y) && ValidateValue.checkR(r)) {
                     sendJson(createJsonResponse(HitCheck.hit(x, y, r), x, y, r));
                 } else {
-                    System.out.println("HTTP/1.1 400 Bad Request");
-                    //sendJsonStatus("{\"error\": \"invalid data\"}", "400 Bad Request");
+                    sendJsonStatus(400, "Bad Request", "{\"error\": \"invalid data\"}");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("HTTP/1.1 400 Bad Request");
-                //sendJsonStatus("{\"error\": \"wrong query param type\"}", "400 Bad Request");
+                sendJsonStatus(400, "Bad Request", "{\"error\": \"wrong query param type\"}");
             } catch (NullPointerException | UnsupportedOperationException e) {
-                System.out.println("HTTP/1.1 400 Bad Request");
-                //sendJsonStatus("{\"error\": \"missed necessary query param\"}", "400 Bad Request ");
+                sendJsonStatus(400, "Bad Request", "{\"error\": \"missed necessary query param\"}");
             } catch (Exception ignored) {
             }
         }
@@ -75,7 +72,16 @@ public class Main {
     }
 
     private static void sendJson(String jsonDump) {
-        String httpResponse = String.format(RESPONSE_TEMPLATE, jsonDump.getBytes(StandardCharsets.UTF_8).length, jsonDump);
+        String httpResponse = String.format(RESPONSE_TEMPLATE, 200, "OK", jsonDump.getBytes(StandardCharsets.UTF_8).length, jsonDump);
+        try {
+            FCGIInterface.request.outStream.write(httpResponse.getBytes(StandardCharsets.UTF_8));
+            FCGIInterface.request.outStream.flush();
+        } catch (IOException e) {
+        }
+    }
+
+    private static void sendJsonStatus(int statusCode, String message, String jsonDump) {
+        String httpResponse = String.format(RESPONSE_TEMPLATE, statusCode, message, jsonDump.getBytes(StandardCharsets.UTF_8).length, jsonDump);
         try {
             FCGIInterface.request.outStream.write(httpResponse.getBytes(StandardCharsets.UTF_8));
             FCGIInterface.request.outStream.flush();

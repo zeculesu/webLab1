@@ -25,7 +25,7 @@ function handleSubmit() {
 
         };
         const startTime = Date.now();
-        const url = "http://localhost:8080/fcgi-bin/web_server.jar";
+        const url = "/fastcgi/";
         fetch(url, requestContent)
             .then(response => response.json())
             .then(data => {
@@ -52,7 +52,7 @@ function addNewLineTable(time, x, y, r, hitResult, executionTime) {
         newCell.textContent = data;
 
         if (index === 4) {
-            newCell.style.color = hitResult === "true" ? "#25CED1" : "#EA526F";
+            newCell.style.color = hitResult ? "#25CED1" : "#EA526F";
         }
 
         newRow.appendChild(newCell);

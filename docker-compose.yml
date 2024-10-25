@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  fcgi:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    expose:
+      - "1337"
+    restart: always
+    networks:
+      - backend
+
+
+  nginx:
+    build:
+      context: ./static
+      dockerfile: Dockerfile
+    ports:
+      - "24598:24598"
+    depends_on:
+      - fcgi
+    networks:
+      - backend
+
+networks:
+  backend:

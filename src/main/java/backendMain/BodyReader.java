@@ -13,7 +13,7 @@ public class BodyReader {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         char[] bodyChars = new char[length];
-        reader.read(bodyChars, 0, length);
-        return new String(bodyChars);
+        int bytesRead = reader.read(bodyChars, 0, length);
+        return new String(bodyChars, 0, bytesRead);
     }
 }

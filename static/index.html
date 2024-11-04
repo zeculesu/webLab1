@@ -14,61 +14,57 @@
 <header>
     Самойлова Артемия Александровна P3230 409513
 </header>
-<table id="main">
-    <tr>
-        <td>
-            <canvas id="graphCanvas" width="400" height="400"></canvas>
-            <script>draw()</script>
-        </td>
-        <td>
-            <h3 class="centered">Выберите значения:</h3>
-            <form id="value-form" action="javascript:void(0);">
-                <label for="x">X =</label>
-                <select name="x" id="x">
-                    <option value="-2">-2</option>
-                    <option value="-1.5">-1.5</option>
-                    <option value="-1">-1</option>
-                    <option value="-0.5">-0.5</option>
-                    <option value="0">0</option>
-                    <option value="0.5">0.5</option>
-                    <option value="1">1</option>
-                    <option value="1.5">1.5</option>
-                    <option value="2">2</option>
-                </select>
-                <p>
-                    <label>
-                        Y = <input type="text" name="y">
-                    </label>
-                    ∈(-5;5)
-                </p>
-                <div class="radio-group">
-                    R =
-                    <label><input type="radio" name="radius" value="1" onchange="draw(1)">1</label>
-                    <label><input type="radio" name="radius" value="2" onchange="draw(2)">2</label>
-                    <label><input type="radio" name="radius" value="3" onchange="draw(3)">3</label>
-                    <label><input type="radio" name="radius" value="4" onchange="draw(4)">4</label>
-                    <label><input type="radio" name="radius" value="5" onchange="draw(5)">5</label>
-                </div>
-                <div class="button-container">
-                    <button onclick="handleSubmit()">Жмяк</button>
-                </div>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <table id="resultTable">
-                <tr>
-                    <td>Время запроса</td>
-                    <td>X</td>
-                    <td>Y</td>
-                    <td>R</td>
-                    <td>Попадание</td>
-                    <td>Время работы скрипта (мс)</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+<div id="main" class="grid-container">
+    <div class="canvas-container">
+        <canvas id="graphCanvas" width="400" height="400"></canvas>
+        <script>draw()</script>
+    </div>
+    <div class="form-container">
+        <h3 class="centered">Выберите значения:</h3>
+        <form id="value-form" action="javascript:void(0);">
+            <label for="x">X =</label>
+            <select name="x" id="x">
+                <option value="-2">-2</option>
+                <option value="-1.5">-1.5</option>
+                <option value="-1">-1</option>
+                <option value="-0.5">-0.5</option>
+                <option value="0">0</option>
+                <option value="0.5">0.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+            </select>
+            <p>
+                <label>
+                    Y = <input type="text" name="y">
+                </label>
+                ∈(-5;5)
+            </p>
+            <div class="radio-group">
+                R =
+                <label><input type="radio" name="radius" value="1" onchange="draw(1)">1</label>
+                <label><input type="radio" name="radius" value="2" onchange="draw(2)">2</label>
+                <label><input type="radio" name="radius" value="3" onchange="draw(3)">3</label>
+                <label><input type="radio" name="radius" value="4" onchange="draw(4)">4</label>
+                <label><input type="radio" name="radius" value="5" onchange="draw(5)">5</label>
+            </div>
+            <div class="button-container">
+                <button onclick="handleSubmit()">Жмяк</button>
+            </div>
+        </form>
+    </div>
+    <div class="result-table-container full-width">
+        <table id="resultTable">
+            <tr>
+                <td>Время запроса</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>R</td>
+                <td>Попадание</td>
+                <td>Время работы скрипта (мс)</td>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>

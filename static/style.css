@@ -21,7 +21,9 @@ header {
     text-align: center;
     font-size: 1.5em;
     height: 9vh;
-    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
 }
 
@@ -34,8 +36,26 @@ body {
 }
 
 #main {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: 20px;
+    justify-content: center;
+    width: 60%;
+}
+
+.canvas-container {
     display: flex;
     justify-content: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.full-width {
+    grid-column: span 2;
 }
 
 .centered {
@@ -82,9 +102,5 @@ body {
 
 #resultTable td {
     text-align: center;
-    padding: 5px;
-}
-
-#main td {
     padding: 5px;
 }

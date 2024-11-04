@@ -1,7 +1,10 @@
 function handleSubmit() {
-    const xInput = document.getElementById("x").value;
-    const yInput = document.querySelector('input[name="y"]').value;
-    const rInput = document.querySelector('input[name="radius"]:checked').value;
+    const xInputElement = document.getElementById("x");
+    const xInput = xInputElement ? xInputElement.value : null;
+    const yInputElement = document.querySelector('input[name="y"]');
+    const yInput = yInputElement ? yInputElement.value : null;
+    const rInputElement = document.querySelector('input[name="radius"]:checked');
+    const rInput = rInputElement ? rInputElement.value : null;
 
     const yCheck = checkY(yInput);
     const xCheck = checkX(xInput);
@@ -13,7 +16,7 @@ function handleSubmit() {
         const rValue = parseInt(rInput);
 
         const requestContent = {
-            "method": "post",
+            "method": "POST",
             "headers": {
                 "content-type": "application/json",
             },

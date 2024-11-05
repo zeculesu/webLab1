@@ -1,4 +1,4 @@
-package backendMain;
+package backendMain.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
